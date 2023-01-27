@@ -29,7 +29,7 @@
 }
 
 .Button {
-  width: 10
+  display: flex;
 }
 
 @keyframes App-logo-spin {
