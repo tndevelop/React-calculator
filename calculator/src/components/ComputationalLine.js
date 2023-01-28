@@ -33,18 +33,17 @@ export default function ComputationalLine(props){
  
     return(
         <Row>
-            <Form.Group >
-                
-                <Form.Select disabled={disabled} value={val>= 0? '+' : '-'} onChange={(event) => changeSign(event.target.value)}>
-                    <option >+</option>
-                    <option >-</option>
-                </Form.Select>
-                <Form.Control disabled={disabled} value={Math.abs(val)} onChange={(event) => changeVal(event.target.value)}></Form.Control>    
-                <Button onClick={() => props.deleteLine(props.idx)}>Delete</Button>
-                <Button onClick={() => changeLocalAbility()}>{disabled ? "Enable" : "Disable"}</Button>
-            </Form.Group>
-            {/*<OperationalButton/>*/}
-
+            <li>
+                <Form.Group >        
+                    <Form.Select className="Padding" disabled={disabled} value={val>= 0? '+' : '-'} onChange={(event) => changeSign(event.target.value)}>
+                        <option >+</option>
+                        <option >-</option>
+                    </Form.Select>
+                    <Form.Control className="Padding" disabled={disabled} value={Math.abs(val)} onChange={(event) => changeVal(event.target.value)}></Form.Control>    
+                    <Button className="Padding" onClick={() => props.deleteLine(props.idx)}>Delete</Button>
+                    <Button className="Padding" onClick={() => changeLocalAbility()}>{disabled ? "Enable" : "Disable"}</Button>
+                </Form.Group>
+            </li>
         </Row>
         )
 }

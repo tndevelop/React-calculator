@@ -13,7 +13,6 @@ export default function Calculator(){
     const [lines, setLines] = useState([...defaultLines])
     const [result, setResult] = useState(0)
     const [availableIdx, setAvailableIdx] = useState(2)
-    //const [,updateState] = useState()
     
 
     useEffect(() => {
@@ -77,7 +76,7 @@ export default function Calculator(){
         <>
         <Button onClick={() => addLine()}>Add Row</Button>
 
-
+        <ul>
         {lines.map((l, index) => 
             <ComputationalLine 
                 deleteLine={(idx) => deleteLine(idx)} 
@@ -88,6 +87,7 @@ export default function Calculator(){
                 idx={l.idx} 
                 disabled={l.disabled}/>
         )}
+        </ul>
 
         Result = {result}
         

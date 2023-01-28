@@ -32,6 +32,10 @@
   display: flex;
 }
 
+.Padding{
+  margin:0.5vh
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
