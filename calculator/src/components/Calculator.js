@@ -13,34 +13,63 @@ export default function Calculator(){
     const [lines, setLines] = useState([...defaultLines])
     const [result, setResult] = useState(0)
     const [availableIdx, setAvailableIdx] = useState(2)
-    const [,updateState] = useState()
+    //const [,updateState] = useState()
     
 
+    useEffect(() => {
+        setResult( lines.filter((l) => l.disabled==false).map(l =>l.val).reduce((a,b) => Number(a)+Number(b), 0))
+      }, [lines, lines.length]);
+
+    const modifySingleLine = (idx, operation) => {
+        return lines.map(l => { 
+            if(l.idx == idx) {
+                let newLine = l; 
+                newLine = operation(l)
+                return newLine
+            }else{
+                return l;
+            }
+        }) 
+    }
+
     const updateVal = (newVal, idx) => {
-        let linesCopy = lines
-        linesCopy[idx].val = newVal
+        /*let linesCopy = lines.map(l => { 
+            if(l.idx == idx) {
+                let newLine = l; 
+                newLine.val = newVal; 
+                return newLine
+            }else{
+                return l;
+            }
+        }) */
+        let linesCopy = modifySingleLine(idx, (l => {l.val = newVal; return l;}) )
         setLines([...linesCopy])
     }
 
-    useEffect(() => {
-        setResult( lines.map(l =>l.val).reduce((a,b) => Number(a)+Number(b), 0))
-      }, [lines]);
-
     const addLine = () => {
-        let newLine = {val : availableIdx, idx: availableIdx}
+        let newLine = {val : availableIdx, idx: availableIdx, disabled: false}
         setAvailableIdx(availableIdx+1)
         setLines([...lines, newLine])
     }
 
-    const deleteLine = (idx) => {
-        const newLines = lines.filter((l) => l.idx!=idx)
+    const deleteLine = async (idx) => {
+        let newLines = lines.filter((l) => l.idx!=idx)
+        await setLines([])
         setLines([...newLines])
-        this.forceUpdate()
+        //setTimeout(() => {setLines([...newLines])}, 1)
+        //this.forceUpdate()
     }
 
-    const changeAvailability = (idx) => {
-        let linesCopy = lines
-        linesCopy[idx].disabled = !linesCopy[idx].disabled 
+    const changeAbility = (idx) => {
+        /*let linesCopy = lines.map(l => { 
+            if(l.idx == idx) {
+                let newLine = l; 
+                newLine.disabled = !l.disabled; 
+                return newLine
+            }else
+                return l;
+        })*/
+        let linesCopy = modifySingleLine(idx, (l => {l.disabled = !l.disabled; return l;}) )
         setLines([...linesCopy])
     }
 
@@ -50,7 +79,14 @@ export default function Calculator(){
 
 
         {lines.map((l, index) => 
-            <ComputationalLine deleteLine={(idx) => deleteLine(idx)} disable={(idx) => changeAvailability(idx)} update={(newVal, idx) => updateVal(newVal, idx)} sign={l.sign} val={l.val} key={index} idx={l.idx}/>
+            <ComputationalLine 
+                deleteLine={(idx) => deleteLine(idx)} 
+                disable={(idx) => changeAbility(idx)} 
+                update={(newVal, idx) => updateVal(newVal, idx)} 
+                val={l.val} 
+                key={index} 
+                idx={l.idx} 
+                disabled={l.disabled}/>
         )}
 
         Result = {result}
