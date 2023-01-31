@@ -1,10 +1,10 @@
 import {Button, Row, Form, Container, Col} from 'react-bootstrap'
 import {useState} from 'react'
 import '../App.css';
-import {HiOutlineTrash, HiTrash} from "react-icons/hi";
+import {HiTrash} from "react-icons/hi";
 import {BiHide, BiShow} from "react-icons/bi";
 
-
+const btnSize = 16
 
 export default function ComputationalLine(props){
 
@@ -12,8 +12,10 @@ export default function ComputationalLine(props){
     const [disabled, setDisabled] = useState(props.disabled)
 
     const changeVal = (newVal) => {
-        setVal(newVal)
-        props.update(newVal, props.idx)
+        if(!isNaN(newVal)){        
+            setVal(newVal)
+            props.update(newVal, props.idx)
+        }
     }
 
     const changeSign = (newSign) => {
@@ -43,10 +45,12 @@ export default function ComputationalLine(props){
                     <Form.Control disabled={disabled} value={Math.abs(val)} onChange={(event) => changeVal(event.target.value)}></Form.Control>    
                 </Col>
                 <Col lg={3}>
-                    <Button variant='danger' onClick={() => props.deleteLine(props.idx)}> Delete <HiTrash /> </Button>
+                    <Button variant='danger' onClick={() => props.deleteLine(props.idx)}> Delete <HiTrash size={btnSize} /> </Button>
                 </Col>
                 <Col lg={3}>
-                    <Button variant='warning' onClick={() => changeLocalAbility()}>{disabled ? <> Enable <BiShow/> </> : <> Disable <BiHide/> </>}</Button>
+                    <Button variant='warning' onClick={() => changeLocalAbility()}>
+                        {disabled ? <div className="Warning"> Enable  <BiShow size={btnSize} /> </div> : <div className="Warning"> Disable<BiHide size={btnSize}/> </div>}
+                    </Button>
                 </Col>
             </Form.Group>
                 
