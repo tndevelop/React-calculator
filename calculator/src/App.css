@@ -30,12 +30,56 @@
 
 .Button {
   display: flex;
+  margin-left: 0.5vh;
+}
+
+
+.Line{
+  margin: 1vh;
 }
 
 .Padding{
-  margin:0.5vh
+  margin-top:0.5vh;
+  margin-bottom: 0.5vh;
 }
 
+.Result{
+  font-size: 160px;
+}
+
+.Add-row{
+  margin-left:2vh;
+}
+
+.Bottom-line{
+  margin-top:3vh;
+}
+
+.Control{
+  margin:0.5vh;
+  display: flex;
+  width: 100%
+}
+
+.form-inline {
+  width: 50%;
+}
+
+.form-group {
+  width: 90%;
+}
+
+.input-group {
+  width: 90% !important;
+}
+
+.form-control {
+  width: 50% !important;
+}
+
+span.input-group-addon {
+  width: 50px !important;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

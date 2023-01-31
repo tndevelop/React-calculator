@@ -1,6 +1,6 @@
 import { useState, useEffect} from 'react'
-import { Button } from 'react-bootstrap';
- 
+import { Button, Row, Container, Col, Card } from 'react-bootstrap';
+import '../App.css';
 import ComputationalLine from './ComputationalLine';
 
 const defaultLines = [
@@ -46,7 +46,7 @@ export default function Calculator(){
     }
 
     const addLine = () => {
-        let newLine = {val : availableIdx, idx: availableIdx, disabled: false}
+        let newLine = {val : 0, idx: availableIdx, disabled: false}
         setAvailableIdx(availableIdx+1)
         setLines([...lines, newLine])
     }
@@ -73,24 +73,33 @@ export default function Calculator(){
     }
 
     return(
-        <>
-        <Button onClick={() => addLine()}>Add Row</Button>
-
-        <ul>
-        {lines.map((l, index) => 
-            <ComputationalLine 
-                deleteLine={(idx) => deleteLine(idx)} 
-                disable={(idx) => changeAbility(idx)} 
-                update={(newVal, idx) => updateVal(newVal, idx)} 
-                val={l.val} 
-                key={index} 
-                idx={l.idx} 
-                disabled={l.disabled}/>
-        )}
-        </ul>
-
-        Result = {result}
+        <Container fluid>
         
-        </>
+
+            
+                {lines.map((l, index) => 
+                    <ComputationalLine 
+                        deleteLine={(idx) => deleteLine(idx)} 
+                        disable={(idx) => changeAbility(idx)} 
+                        update={(newVal, idx) => updateVal(newVal, idx)} 
+                        val={l.val} 
+                        key={index} 
+                        idx={l.idx} 
+                        disabled={l.disabled}/>
+                )}
+            
+            <Row className="Bottom-line">
+                <Col lg={6}>
+                    <Button className="Add-row" onClick={() => addLine()}>Add Row</Button>
+                </Col>
+                <Col lg={6}>
+                    <Card>
+                        <Card.Title > <h4> Result = {result} </h4></Card.Title>
+                    </Card>
+                    
+                </Col>
+            </Row>
+        
+        </Container>
         )
 }

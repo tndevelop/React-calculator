@@ -1,10 +1,8 @@
-import {Button, Row, Form} from 'react-bootstrap'
-import Select from 'react-select'
+import {Button, Row, Form, Container, Col} from 'react-bootstrap'
 import {useState} from 'react'
-
 import '../App.css';
-import { isAccordionItemSelected } from 'react-bootstrap/esm/AccordionContext';
-import OperationalButton from './OperationalButton';
+import {HiOutlineTrash, HiTrash} from "react-icons/hi";
+import {BiHide, BiShow} from "react-icons/bi";
 
 
 
@@ -32,18 +30,27 @@ export default function ComputationalLine(props){
     }
  
     return(
+        <Container fluid className="Line">
         <Row>
-            <li>
-                <Form.Group >        
-                    <Form.Select className="Padding" disabled={disabled} value={val>= 0? '+' : '-'} onChange={(event) => changeSign(event.target.value)}>
+            <Form.Group>
+                <Col lg={2}>
+                    <Form.Select className="Padding btn-primary" disabled={disabled} value={val>= 0? '+' : '-'} onChange={(event) => changeSign(event.target.value)}>
                         <option >+</option>
                         <option >-</option>
                     </Form.Select>
-                    <Form.Control className="Padding" disabled={disabled} value={Math.abs(val)} onChange={(event) => changeVal(event.target.value)}></Form.Control>    
-                    <Button className="Padding" onClick={() => props.deleteLine(props.idx)}>Delete</Button>
-                    <Button className="Padding" onClick={() => changeLocalAbility()}>{disabled ? "Enable" : "Disable"}</Button>
-                </Form.Group>
-            </li>
+                </Col>
+                <Col lg={4}>
+                    <Form.Control disabled={disabled} value={Math.abs(val)} onChange={(event) => changeVal(event.target.value)}></Form.Control>    
+                </Col>
+                <Col lg={3}>
+                    <Button variant='danger' onClick={() => props.deleteLine(props.idx)}> Delete <HiTrash /> </Button>
+                </Col>
+                <Col lg={3}>
+                    <Button variant='warning' onClick={() => changeLocalAbility()}>{disabled ? <> Enable <BiShow/> </> : <> Disable <BiHide/> </>}</Button>
+                </Col>
+            </Form.Group>
+                
         </Row>
+        </Container>
         )
 }
