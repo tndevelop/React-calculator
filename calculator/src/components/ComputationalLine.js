@@ -19,7 +19,7 @@ export default function ComputationalLine(props){
     }
 
     const changeSign = (newSign) => {
-        if(val != 0){
+        if(val !== 0){
             const newVal = -1*val
             setVal(newVal)
             props.update(newVal, props.idx)
