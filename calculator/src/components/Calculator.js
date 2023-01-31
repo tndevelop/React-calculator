@@ -16,12 +16,12 @@ export default function Calculator(){
     
 
     useEffect(() => {
-        setResult( lines.filter((l) => l.disabled==false).map(l =>l.val).reduce((a,b) => Number(a)+Number(b), 0))
+        setResult( lines.filter((l) => l.disabled===false).map(l =>l.val).reduce((a,b) => Number(a)+Number(b), 0))
       }, [lines, lines.length]);
 
     const modifySingleLine = (idx, operation) => {
         return lines.map(l => { 
-            if(l.idx == idx) {
+            if(l.idx === idx) {
                 let newLine = l; 
                 newLine = operation(l)
                 return newLine
@@ -32,42 +32,23 @@ export default function Calculator(){
     }
 
     const updateVal = (newVal, idx) => {
-        /*let linesCopy = lines.map(l => { 
-            if(l.idx == idx) {
-                let newLine = l; 
-                newLine.val = newVal; 
-                return newLine
-            }else{
-                return l;
-            }
-        }) */
         let linesCopy = modifySingleLine(idx, (l => {l.val = newVal; return l;}) )
         setLines([...linesCopy])
     }
 
     const addLine = () => {
-        let newLine = {val : availableIdx, idx: availableIdx, disabled: false}
+        let newLine = {val : 0, idx: availableIdx, disabled: false}
         setAvailableIdx(availableIdx+1)
         setLines([...lines, newLine])
     }
 
     const deleteLine = async (idx) => {
-        let newLines = lines.filter((l) => l.idx!=idx)
+        let newLines = lines.filter((l) => l.idx!==idx)
         await setLines([])
         setLines([...newLines])
-        //setTimeout(() => {setLines([...newLines])}, 1)
-        //this.forceUpdate()
     }
 
     const changeAbility = (idx) => {
-        /*let linesCopy = lines.map(l => { 
-            if(l.idx == idx) {
-                let newLine = l; 
-                newLine.disabled = !l.disabled; 
-                return newLine
-            }else
-                return l;
-        })*/
         let linesCopy = modifySingleLine(idx, (l => {l.disabled = !l.disabled; return l;}) )
         setLines([...linesCopy])
     }

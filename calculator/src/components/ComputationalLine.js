@@ -1,10 +1,7 @@
 import {Button, Row, Form} from 'react-bootstrap'
-import Select from 'react-select'
 import {useState} from 'react'
 
 import '../App.css';
-import { isAccordionItemSelected } from 'react-bootstrap/esm/AccordionContext';
-import OperationalButton from './OperationalButton';
 
 
 
@@ -14,12 +11,14 @@ export default function ComputationalLine(props){
     const [disabled, setDisabled] = useState(props.disabled)
 
     const changeVal = (newVal) => {
-        setVal(newVal)
-        props.update(newVal, props.idx)
+        if(!isNaN(newVal)){
+            setVal(newVal)
+            props.update(newVal, props.idx)
+        }
     }
 
     const changeSign = (newSign) => {
-        if(val != 0){
+        if(val !== 0){
             const newVal = -1*val
             setVal(newVal)
             props.update(newVal, props.idx)
